@@ -158,7 +158,6 @@ public class Telekinesis extends CustomEnchant implements TriggerOnBlockBreakEnc
 
     @Override
     public void onBlockDropItem(BlockDropItemEvent e, int level) {
-        if (EnchantsSquared.isValhallaHooked()) return;
         if (shouldEnchantmentCancel(level, e.getPlayer(), e.getBlock().getLocation())) return;
 
         for (Item i : e.getItems()){

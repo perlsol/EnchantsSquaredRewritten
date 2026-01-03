@@ -1,5 +1,8 @@
 package me.athlaeos.enchantssquared.enchantments.on_interact;
 
+import com.palmergames.bukkit.towny.TownyAPI;
+import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.TownBlock;
 import me.athlaeos.enchantssquared.EnchantsSquared;
 import me.athlaeos.enchantssquared.config.ConfigManager;
 import me.athlaeos.enchantssquared.enchantments.CustomEnchant;
@@ -8,11 +11,13 @@ import me.athlaeos.enchantssquared.enchantments.LevelsFromMainHandOnly;
 import me.athlaeos.enchantssquared.enchantments.on_block_break.TriggerOnBlockBreakEnchantment;
 import me.athlaeos.enchantssquared.utility.BlockUtils;
 import me.athlaeos.enchantssquared.utility.ItemUtils;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockDropItemEvent;
@@ -168,7 +173,8 @@ public class AutoReplant extends CustomEnchant implements TriggerOnInteractEncha
                 clickedBlock == null ||
                 e.getAction() != Action.RIGHT_CLICK_BLOCK ||
                 !legalCrops.contains(clickedBlock.getType()) ||
-                shouldEnchantmentCancel(level, e.getPlayer(), clickedBlock.getLocation())) return;
+                shouldEnchantmentCancel(level, e.getPlayer(), clickedBlock.getLocation()) ||
+                !canUseReplant(e.getPlayer(), clickedBlock.getLocation())) return;
         Ageable crop = (Ageable) clickedBlock.getBlockData();
         if (crop.getAge() >= crop.getMaximumAge()){
             if (ignoreBreakPermissions) {
@@ -184,7 +190,8 @@ public class AutoReplant extends CustomEnchant implements TriggerOnInteractEncha
     public void onBlockBreak(BlockBreakEvent e, int level) {
         Block brokenBlock = e.getBlock();
         if (!legalCrops.contains(brokenBlock.getType()) ||
-                shouldEnchantmentCancel(level, e.getPlayer(), brokenBlock.getLocation())) return;
+                shouldEnchantmentCancel(level, e.getPlayer(), brokenBlock.getLocation()) ||
+                !canUseReplant(e.getPlayer(), brokenBlock.getLocation())) return;
         Ageable crop = (Ageable) brokenBlock.getBlockData();
         if (crop.getAge() >= crop.getMaximumAge()){
             Material originalCrop = brokenBlock.getType();
@@ -198,5 +205,21 @@ public class AutoReplant extends CustomEnchant implements TriggerOnInteractEncha
     @Override
     public void onBlockDropItem(BlockDropItemEvent e, int level) {
         // do nothing
+    }
+
+    private boolean canUseReplant(Player player, Location location) {
+        try {
+            TownyAPI api = TownyAPI.getInstance();
+            if (api == null) return true; // Towny not loaded
+            Resident resident = api.getResident(player);
+            if (resident == null) return false; // Player not a resident
+            if (api.isWilderness(location)) return true; // Allow in wilderness
+            TownBlock townBlock = api.getTownBlock(location);
+            if (townBlock == null) return false; // Not claimed (shouldn't happen if not wilderness)
+            // Allow if player is a resident of the town
+            return townBlock.getTown().hasResident(resident);
+        } catch (Exception e) {
+            return true; // Default to allow if unsure
+        }
     }
 }

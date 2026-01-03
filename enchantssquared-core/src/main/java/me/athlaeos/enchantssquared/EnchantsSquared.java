@@ -296,6 +296,7 @@ public final class EnchantsSquared extends JavaPlugin {
             }
             return nms != null;
         } catch (Exception | Error ignored) {
+			ignored.printStackTrace();
             return false;
         }
     }

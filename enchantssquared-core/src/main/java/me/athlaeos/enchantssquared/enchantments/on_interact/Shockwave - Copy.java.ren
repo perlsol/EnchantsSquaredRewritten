@@ -1,6 +1,5 @@
 package me.athlaeos.enchantssquared.enchantments.on_interact;
 
-import com.palmergames.bukkit.towny.TownyAPI;
 import me.athlaeos.enchantssquared.EnchantsSquared;
 import me.athlaeos.enchantssquared.config.ConfigManager;
 import me.athlaeos.enchantssquared.domain.EntityClassificationType;
@@ -40,7 +39,15 @@ public class Shockwave extends CustomEnchant implements TriggerOnInteractEnchant
     private final YamlConfiguration config;
     private final Collection<String> incompatibleVanillaEnchantments;
     private final Collection<String> incompatibleCustomEnchantments;
-
+    /**
+     * Constructor for a Custom Enchant. The type and id must be unique and the type will automatically be uppercased
+     * by convention.
+     * The id will be used on the item to store the enchantment and thus must be consistent, or it will risk
+     * changing existing enchantments on item or simply invalidate the enchantment entirely.
+     *
+     * @param id   the identifying id of this custom enchant.
+     * @param type the identifying type of this custom enchant.
+     */
     public Shockwave(int id, String type) {
         super(id, type);
         this.config = ConfigManager.getInstance().getConfig("config.yml").get();
@@ -158,6 +165,7 @@ public class Shockwave extends CustomEnchant implements TriggerOnInteractEnchant
         return icon;
     }
 
+
     @Override
     public String getWorldGuardFlagName() {
         return "es-deny-shockwave";
@@ -185,7 +193,6 @@ public class Shockwave extends CustomEnchant implements TriggerOnInteractEnchant
                 e.getBlockFace() != BlockFace.UP ||
                 !CooldownManager.getInstance().isCooldownPassed(e.getPlayer().getUniqueId(), "shockwave_cooldown") ||
                 shouldEnchantmentCancel(level, e.getPlayer(), clickedBlock.getLocation())) return;
-
         if (!CooldownManager.getInstance().isCooldownPassed(e.getPlayer().getUniqueId(), "shockwave_cooldown")) {
             if (!cooldownMessage.isEmpty()){
                 e.getPlayer().spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtils.chat(cooldownMessage
@@ -203,9 +210,6 @@ public class Shockwave extends CustomEnchant implements TriggerOnInteractEnchant
 
         for (Entity entity : entitiesInRadius){
             if (entity instanceof LivingEntity && !EntityClassificationType.isMatchingClassification(entity.getType(), EntityClassificationType.UNALIVE)){
-                // Skip knockback if PvP is disabled at the entity's location
-                if (!isPvPEnabledAtLocation(entity.getLocation())) continue;
-
                 ((LivingEntity) entity).damage(0.01, e.getPlayer());
                 AttributeInstance attribute = ((LivingEntity) entity).getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE);
                 double forceWithResistance = force;
@@ -222,15 +226,5 @@ public class Shockwave extends CustomEnchant implements TriggerOnInteractEnchant
             e.getPlayer().getWorld().playSound(origin, Sound.ENTITY_GENERIC_EXPLODE, 0.5F, 0.5F);
         }
         CooldownManager.getInstance().setCooldownIgnoreIfPermission(e.getPlayer(), cooldown * 50, "shockwave_cooldown");
-    }
-
-    private boolean isPvPEnabledAtLocation(Location location) {
-        // Use the Towny API to check if PvP is disabled in the area
-        try {
-            if (TownyAPI.getInstance().isWilderness(location)) return true; // PvP allowed in wilderness
-            return TownyAPI.getInstance().getTownBlock(location).getPermissions().pvp;
-        } catch (Exception e) {
-            return true; // Default to PvP allowed if unsure
-        }
     }
 }

@@ -37,6 +37,16 @@
             <artifactId>enchantssquared-default</artifactId>
             <version>${project.version}</version>
         </dependency>
+		<dependency>
+			<groupId>me.athlaeos</groupId>
+			<artifactId>valhallammo-core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>me.athlaeos</groupId>
+			<artifactId>valhallatrinkets</artifactId>
+			<version>1.0</version>
+		</dependency>
     </dependencies>
 
     <build>
