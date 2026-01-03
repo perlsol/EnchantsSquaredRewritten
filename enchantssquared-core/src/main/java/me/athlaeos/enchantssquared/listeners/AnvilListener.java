@@ -14,8 +14,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -38,7 +42,12 @@ public class AnvilListener implements Listener {
         ItemStack result = a.getItem(2);
         if (ItemUtils.isAirOrNull(item1) || ItemUtils.isAirOrNull(item2) || ItemUtils.isAirOrNull(result) || e.getRawSlot() != 2) return;
         EnchantsSquared.getPlugin().getServer().getScheduler().runTaskLater(EnchantsSquared.getPlugin(), () -> {
-            a.setItem(1, null);
+            ItemMeta meta = result.getItemMeta();
+            if (meta != null && meta.getPersistentDataContainer().has(new NamespacedKey(EnchantsSquared.getPlugin(), "custom_combine"), PersistentDataType.BYTE)) {
+                // Custom combine, consume all
+                a.setItem(1, null);
+            }
+            // For vanilla operations (like repair), do nothing - let vanilla handle consumption
         }, 1L);
     }
 
@@ -80,6 +89,12 @@ public class AnvilListener implements Listener {
                     CustomEnchantManager.getInstance().setItemEnchants(r, enchantments);
                 }
                 e.setResult(r);
+                // Mark as custom combine for consumption handling
+                ItemMeta meta = r.getItemMeta();
+                if (meta != null) {
+                    meta.getPersistentDataContainer().set(new NamespacedKey(EnchantsSquared.getPlugin(), "custom_combine"), PersistentDataType.BYTE, (byte) 1);
+                    r.setItemMeta(meta);
+                }
                 break;
             }
             case MAX_ENCHANTS_EXCEEDED: {
