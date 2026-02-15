@@ -17,6 +17,21 @@
             <artifactId>enchantssquared-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>me.athlaeos</groupId>
+            <artifactId>enchantssquared-1.21.4</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>me.athlaeos</groupId>
+            <artifactId>enchantssquared-1.21.3</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>me.athlaeos</groupId>
+            <artifactId>enchantssquared-1.21</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>me.athlaeos</groupId>
 			<artifactId>valhallammo-core</artifactId>
@@ -54,6 +69,18 @@
                     <filters>
                         <filter>
                             <artifact>me.athlaeos:enchantssquared-core</artifact>
+                            <includes>**</includes>
+                        </filter>
+                        <filter>
+                            <artifact>me.athlaeos:enchantssquared-1.21</artifact>
+                            <includes>**</includes>
+                        </filter>
+                        <filter>
+                            <artifact>me.athlaeos:enchantssquared-1.21.3</artifact>
+                            <includes>**</includes>
+                        </filter>
+                        <filter>
+                            <artifact>me.athlaeos:enchantssquared-1.21.4</artifact>
                             <includes>**</includes>
                         </filter>
                         <!-- Exclude optional dependencies that shouldn't be shaded -->
