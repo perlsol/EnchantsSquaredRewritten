@@ -686,7 +686,7 @@ enchantment_configuration:
     trade_cost_base_upper: 12
     trade_cost_lv_lower: 8
     trade_cost_lv_upper: 12
-    icon: TRIDENT
+    icon: DIAMOND_SWORD
     is_treasure: false
     incompatible_vanilla_enchantments: []
     incompatible_custom_enchantments: []
@@ -762,6 +762,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with:
       - SWORDS
+      - SPEARS
       - PICKAXES
       - SHOVELS
       - AXES
@@ -837,6 +838,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with:
       - SWORDS
+      - SPEARS
       - BOWS
       - CROSSBOWS
 
@@ -865,6 +867,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with:
       - SWORDS
+      - SPEARS
       - BOWS
       - CROSSBOWS
 
@@ -914,6 +917,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with:
       - SWORDS
+      - SPEARS
       - BOWS
       - CROSSBOWS
 
@@ -942,6 +946,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with:
       - SWORDS
+      - SPEARS
       - BOWS
       - CROSSBOWS
       - AXES
@@ -972,6 +977,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with:
       - SWORDS
+      - SPEARS
       - BOWS
       - CROSSBOWS
 
@@ -998,6 +1004,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with: # Limited to weapons
       - SWORDS
+      - SPEARS
       - BOWS
       - CROSSBOWS
       - AXES
@@ -1049,6 +1056,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with: # Limited to weapons
       - SWORDS
+      - SPEARS
       - BOWS
       - CROSSBOWS
 
@@ -1081,6 +1089,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with: # Limited to weapons
       - SWORDS
+      - SPEARS
       - AXES
       - BOWS
       - CROSSBOWS
@@ -1164,6 +1173,7 @@ enchantment_configuration:
       - CROSSBOWS
       - BOWS
       - SWORDS
+      - SPEARS
 
   crushing:
     description: '&8> For each piece of heavy armor the enemy is wearing(gold, iron, netherite), you deal &e2.5&8-&e3.75&8-&e5%&8 more damage'
@@ -1311,6 +1321,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with:
       - SWORDS
+      - SPEARS
       - AXES
 
   vampiric:
@@ -1337,6 +1348,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with:
       - SWORDS
+      - SPEARS
       - AXES
 
   beheading:
@@ -1359,6 +1371,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with: # Limited to weapons
       - SWORDS
+      - SPEARS
       - AXES
 
   soulbound:
@@ -1405,6 +1418,7 @@ enchantment_configuration:
     is_treasure: false
     compatible_with: # Limited to weapons
       - SWORDS
+      - SPEARS
       - AXES
 
   damage_reduction:

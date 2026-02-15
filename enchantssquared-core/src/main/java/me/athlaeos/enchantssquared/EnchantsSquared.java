@@ -86,6 +86,7 @@ public final class EnchantsSquared extends JavaPlugin {
             return;
         }
 
+        saveAndUpdateConfig("config.yml");
         saveConfig("excavationblocks.yml");
         saveConfig("smeltblocksrecipes.yml");
         saveAndUpdateConfig("translations.yml");

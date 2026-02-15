@@ -1,6 +1,7 @@
 package me.athlaeos.enchantssquared.enchantments.on_attack;
 
 import me.athlaeos.enchantssquared.config.ConfigManager;
+import me.athlaeos.enchantssquared.domain.MaterialClassType;
 import me.athlaeos.enchantssquared.enchantments.CustomEnchant;
 import me.athlaeos.enchantssquared.enchantments.LevelService;
 import me.athlaeos.enchantssquared.enchantments.LevelsFromMainHandAndEquipment;
@@ -12,7 +13,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -33,7 +33,7 @@ public class SpearSharpness extends CustomEnchant implements TriggerOnAttackEnch
         this.damageBase = config.getDouble("enchantment_configuration.spear_sharpness.damage_base");
         this.damageLv = config.getDouble("enchantment_configuration.spear_sharpness.damage_lv");
 
-        this.icon = ItemUtils.getIconFromConfig(config, "enchantment_configuration.spear_sharpness.icon", createIcon(Material.TRIDENT));
+        this.icon = ItemUtils.getIconFromConfig(config, "enchantment_configuration.spear_sharpness.icon", createIcon(Material.DIAMOND_SWORD));
     }
 
     private final LevelService mainHandLevels = new LevelsFromMainHandAndEquipment(this);
@@ -81,12 +81,12 @@ public class SpearSharpness extends CustomEnchant implements TriggerOnAttackEnch
 
     @Override
     public boolean isNaturallyCompatible(Material material) {
-        return material != null && "SPEAR".equals(material.toString());
+        return MaterialClassType.getClass(material) == MaterialClassType.SPEARS;
     }
 
     @Override
     public boolean isFunctionallyCompatible(Material material) {
-        return material != null && "SPEAR".equals(material.toString());
+        return MaterialClassType.getClass(material) == MaterialClassType.SPEARS;
     }
 
     @Override
@@ -152,6 +152,6 @@ public class SpearSharpness extends CustomEnchant implements TriggerOnAttackEnch
 
     @Override
     public Collection<String> getCompatibleItems() {
-        return new HashSet<>(Arrays.asList("SPEAR"));
+        return java.util.Collections.singleton("SPEARS");
     }
 }
