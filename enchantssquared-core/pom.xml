@@ -4,7 +4,7 @@
     <artifactId>enchantssquared-core</artifactId>
 
     <properties>
-        <javaVersion>17</javaVersion>
+        <javaVersion>21</javaVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

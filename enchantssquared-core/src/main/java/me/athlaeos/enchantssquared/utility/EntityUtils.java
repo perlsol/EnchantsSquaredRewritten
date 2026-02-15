@@ -202,6 +202,29 @@ public class EntityUtils {
         return null;
     }
 
+    /**
+     * Try to retrieve an ItemStack represented by a projectile (e.g. thrown trident or spear) using reflection.
+     * Returns null if the projectile does not expose an item.
+     */
+    public static org.bukkit.inventory.ItemStack getItemFromProjectile(Entity projectile){
+        if (projectile == null) return null;
+        try {
+            Method m = projectile.getClass().getMethod("getItem");
+            Object res = m.invoke(projectile);
+            if (res instanceof org.bukkit.inventory.ItemStack) return (org.bukkit.inventory.ItemStack) res;
+        } catch (NoSuchMethodException ignored) {
+        } catch (IllegalAccessException | InvocationTargetException ignored) {
+        }
+        try {
+            Method m2 = projectile.getClass().getMethod("getItemStack");
+            Object res = m2.invoke(projectile);
+            if (res instanceof org.bukkit.inventory.ItemStack) return (org.bukkit.inventory.ItemStack) res;
+        } catch (NoSuchMethodException ignored) {
+        } catch (IllegalAccessException | InvocationTargetException ignored) {
+        }
+        return null;
+    }
+
     public static void addUniqueAttribute(LivingEntity e, UUID uuid, String identifier, Attribute type, double amount, AttributeModifier.Operation operation){
         EnchantsSquared.getNms().addUniqueAttribute(e, uuid, identifier, type, amount, operation);
     }

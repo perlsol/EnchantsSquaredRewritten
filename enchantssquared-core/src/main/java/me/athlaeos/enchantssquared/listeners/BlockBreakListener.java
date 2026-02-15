@@ -30,7 +30,7 @@ public class BlockBreakListener implements Listener {
         }
     }
 
-    @EventHandler(priority = EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockDropItem(BlockDropItemEvent e){
         if (!e.isCancelled()){
             Player breaker = e.getPlayer();

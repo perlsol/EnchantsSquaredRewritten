@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class TridentSharpness extends CustomEnchant implements TriggerOnAttackEnchantment {
+public class SpearSharpness extends CustomEnchant implements TriggerOnAttackEnchantment {
 
     private final double damageBase;
     private final double damageLv;
@@ -24,16 +24,16 @@ public class TridentSharpness extends CustomEnchant implements TriggerOnAttackEn
     private final Collection<String> incompatibleVanillaEnchantments;
     private final Collection<String> incompatibleCustomEnchantments;
 
-    public TridentSharpness(int id, String type) {
+    public SpearSharpness(int id, String type) {
         super(id, type);
         this.config = ConfigManager.getInstance().getConfig("config.yml").get();
-        this.incompatibleVanillaEnchantments = new HashSet<>(config.getStringList("enchantment_configuration.trident_sharpness.incompatible_vanilla_enchantments"));
-        this.incompatibleCustomEnchantments = new HashSet<>(config.getStringList("enchantment_configuration.trident_sharpness.incompatible_custom_enchantments"));
+        this.incompatibleVanillaEnchantments = new HashSet<>(config.getStringList("enchantment_configuration.spear_sharpness.incompatible_vanilla_enchantments"));
+        this.incompatibleCustomEnchantments = new HashSet<>(config.getStringList("enchantment_configuration.spear_sharpness.incompatible_custom_enchantments"));
 
-        this.damageBase = config.getDouble("enchantment_configuration.trident_sharpness.damage_base");
-        this.damageLv = config.getDouble("enchantment_configuration.trident_sharpness.damage_lv");
+        this.damageBase = config.getDouble("enchantment_configuration.spear_sharpness.damage_base");
+        this.damageLv = config.getDouble("enchantment_configuration.spear_sharpness.damage_lv");
 
-        this.icon = ItemUtils.getIconFromConfig(config, "enchantment_configuration.trident_sharpness.icon", createIcon(Material.TRIDENT));
+        this.icon = ItemUtils.getIconFromConfig(config, "enchantment_configuration.spear_sharpness.icon", createIcon(Material.TRIDENT));
     }
 
     private final LevelService mainHandLevels = new LevelsFromMainHandAndEquipment(this);
@@ -54,24 +54,24 @@ public class TridentSharpness extends CustomEnchant implements TriggerOnAttackEn
 
     @Override
     public String getDisplayEnchantment() {
-        return config.getString("enchantment_configuration.trident_sharpness.enchant_name", getType())
+        return config.getString("enchantment_configuration.spear_sharpness.enchant_name", getType())
                 .replace(" %lv_roman%", "")
                 .replace(" %lv_number%", "");
     }
 
     @Override
     public String getDescription() {
-        return config.getString("enchantment_configuration.trident_sharpness.description");
+        return config.getString("enchantment_configuration.spear_sharpness.description");
     }
 
     @Override
     public boolean isEnabled() {
-        return config.getBoolean("enchantment_configuration.trident_sharpness.enabled");
+        return config.getBoolean("enchantment_configuration.spear_sharpness.enabled");
     }
 
     @Override
     public String getRequiredPermission() {
-        return "es.enchant.trident_sharpness";
+        return "es.enchant.spear_sharpness";
     }
 
     @Override
@@ -81,62 +81,62 @@ public class TridentSharpness extends CustomEnchant implements TriggerOnAttackEn
 
     @Override
     public boolean isNaturallyCompatible(Material material) {
-        return material == Material.TRIDENT;
+        return material != null && "SPEAR".equals(material.toString());
     }
 
     @Override
     public boolean isFunctionallyCompatible(Material material) {
-        return material == Material.TRIDENT;
+        return material != null && "SPEAR".equals(material.toString());
     }
 
     @Override
     public int getWeight() {
-        return config.getInt("enchantment_configuration.trident_sharpness.weight");
+        return config.getInt("enchantment_configuration.spear_sharpness.weight");
     }
 
     @Override
     public int getMaxLevel() {
-        return config.getInt("enchantment_configuration.trident_sharpness.max_level");
+        return config.getInt("enchantment_configuration.spear_sharpness.max_level");
     }
 
     @Override
     public int getMaxTableLevel() {
-        return config.getInt("enchantment_configuration.trident_sharpness.max_level_table");
+        return config.getInt("enchantment_configuration.spear_sharpness.max_level_table");
     }
 
     @Override
     public boolean isTreasure() {
-        return config.getBoolean("enchantment_configuration.trident_sharpness.is_treasure");
+        return config.getBoolean("enchantment_configuration.spear_sharpness.is_treasure");
     }
 
     @Override
     public boolean isBookOnly() {
-        return config.getBoolean("enchantment_configuration.trident_sharpness.book_only");
+        return config.getBoolean("enchantment_configuration.spear_sharpness.book_only");
     }
 
     @Override
     public boolean isTradingEnabled() {
-        return config.getBoolean("enchantment_configuration.trident_sharpness.trade_enabled");
+        return config.getBoolean("enchantment_configuration.spear_sharpness.trade_enabled");
     }
 
     @Override
     public int getTradingMinBasePrice() {
-        return config.getInt("enchantment_configuration.trident_sharpness.trade_cost_base_lower");
+        return config.getInt("enchantment_configuration.spear_sharpness.trade_cost_base_lower");
     }
 
     @Override
     public int getTradingMaxBasePrice() {
-        return config.getInt("enchantment_configuration.trident_sharpness.trade_cost_base_upper");
+        return config.getInt("enchantment_configuration.spear_sharpness.trade_cost_base_upper");
     }
 
     @Override
     public int getTradingMinLeveledPrice() {
-        return config.getInt("enchantment_configuration.trident_sharpness.trade_cost_lv_lower");
+        return config.getInt("enchantment_configuration.spear_sharpness.trade_cost_lv_lower");
     }
 
     @Override
     public int getTradingMaxLeveledPrice() {
-        return config.getInt("enchantment_configuration.trident_sharpness.trade_cost_base_upper");
+        return config.getInt("enchantment_configuration.spear_sharpness.trade_cost_base_upper");
     }
 
     private final ItemStack icon;
@@ -147,11 +147,11 @@ public class TridentSharpness extends CustomEnchant implements TriggerOnAttackEn
 
     @Override
     public String getWorldGuardFlagName() {
-        return "es-deny-trident-sharpness";
+        return "es-deny-spear-sharpness";
     }
 
     @Override
     public Collection<String> getCompatibleItems() {
-        return new HashSet<>(Arrays.asList("TRIDENT"));
+        return new HashSet<>(Arrays.asList("SPEAR"));
     }
 }

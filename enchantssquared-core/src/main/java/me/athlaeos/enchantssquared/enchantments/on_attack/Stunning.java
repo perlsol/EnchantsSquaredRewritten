@@ -16,7 +16,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -69,7 +68,7 @@ public class Stunning extends CustomEnchant implements TriggerOnAttackEnchantmen
         }
 
         double chance = chanceBase + ((level - 1) * chanceLv);
-        if (!ItemUtils.isAirOrNull(item) && item.getType().toString().contains("_AXE")) {
+        if (item != null && !ItemUtils.isAirOrNull(item) && item.getType().toString().contains("_AXE")) {
             chance *= axeStunMultiplier;
         }
         if (Utils.getRandom().nextDouble() < chance){

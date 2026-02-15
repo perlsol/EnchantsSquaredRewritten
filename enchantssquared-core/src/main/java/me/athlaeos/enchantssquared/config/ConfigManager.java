@@ -7,6 +7,7 @@ import java.util.HashMap;
 //All credit to spigotmc.org user Bimmr for this manager
 public class ConfigManager {
 
+    @SuppressWarnings("unused")
     private final EnchantsSquared plugin;
     private final HashMap<String, Config> configs = new HashMap<>();
     private static ConfigManager manager = null;

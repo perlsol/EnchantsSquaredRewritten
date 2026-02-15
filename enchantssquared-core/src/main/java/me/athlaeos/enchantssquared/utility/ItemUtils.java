@@ -9,7 +9,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemDamageEvent;
-import org.bukkit.event.player.PlayerItemMendEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -39,8 +38,12 @@ public class ItemUtils {
         if (rawIcon instanceof ItemStack){
             return (ItemStack) rawIcon;
         } else {
+            String materialName = config.getString(path);
+            if (materialName == null || materialName.isBlank()) {
+                return def;
+            }
             try {
-                def.setType(Material.valueOf(config.getString(path)));
+                def.setType(Material.valueOf(materialName));
                 return def;
             } catch (IllegalArgumentException ignored){
                 EnchantsSquared.getPlugin().getServer().getLogger().warning(
@@ -135,6 +138,11 @@ public class ItemUtils {
                         case HEAD: {
                             damager.playEffect(EntityEffect.BREAK_EQUIPMENT_HELMET);
                             damager.getInventory().setHelmet(null);
+                            break;
+                        }
+                        case BODY: {
+                            // Body slot for entities like horses, but players don't have this slot
+                            // No specific action needed for players
                             break;
                         }
                     }

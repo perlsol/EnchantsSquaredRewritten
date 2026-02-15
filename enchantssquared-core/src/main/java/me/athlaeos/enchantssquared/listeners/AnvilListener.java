@@ -14,7 +14,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
@@ -105,6 +104,14 @@ public class AnvilListener implements Listener {
                 break;
             }
             case ITEMS_NOT_COMBINEABLE: {
+                e.setResult(output.getOutput());
+                break;
+            }
+            case ITEM_NO_CUSTOM_ENCHANTS: {
+                e.setResult(output.getOutput());
+                break;
+            }
+            case ITEM_NO_COMPATIBLE_ENCHANTS: {
                 e.setResult(output.getOutput());
                 break;
             }

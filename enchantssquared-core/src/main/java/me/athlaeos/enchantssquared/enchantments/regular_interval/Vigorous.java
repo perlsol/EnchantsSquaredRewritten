@@ -1,7 +1,6 @@
 package me.athlaeos.enchantssquared.enchantments.regular_interval;
 
 import me.athlaeos.enchantssquared.AttributeEnchantment;
-import me.athlaeos.enchantssquared.EnchantsSquared;
 import me.athlaeos.enchantssquared.config.ConfigManager;
 import me.athlaeos.enchantssquared.domain.EntityEquipment;
 import me.athlaeos.enchantssquared.domain.MaterialClassType;
@@ -18,9 +17,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 

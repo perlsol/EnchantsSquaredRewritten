@@ -66,6 +66,7 @@ public class ConfigUpdater {
         write(newConfig, oldConfig, comments, includedSectionsArrayList, writer, yaml);
     }
 
+    @SuppressWarnings("unused")
     private static void writeWithFilter(FileConfiguration newConfig, FileConfiguration oldConfig, Map<String, String> comments, List<String> includedSections, BufferedWriter writer, Yaml yaml) throws IOException {
         outer: for (String key : newConfig.getKeys(true)) {
             String[] keys = key.split("\\.");
@@ -174,7 +175,7 @@ public class ConfigUpdater {
         } else if (obj instanceof Character) {
             writer.write(prefixSpaces + actualKey + ": '" + obj + "'\n");
         } else if (obj instanceof List) {
-            writeList((List) obj, actualKey, prefixSpaces, yaml, writer);
+            writeList((List<?>) obj, actualKey, prefixSpaces, yaml, writer);
         } else {
             writer.write(prefixSpaces + actualKey + ": " + yaml.dump(obj));
         }
@@ -192,11 +193,11 @@ public class ConfigUpdater {
     }
 
     //Writes a list of any object
-    private static void writeList(List list, String actualKey, String prefixSpaces, Yaml yaml, BufferedWriter writer) throws IOException {
+    private static void writeList(List<?> list, String actualKey, String prefixSpaces, Yaml yaml, BufferedWriter writer) throws IOException {
         writer.write(getListAsString(list, actualKey, prefixSpaces, yaml));
     }
 
-    private static String getListAsString(List list, String actualKey, String prefixSpaces, Yaml yaml) {
+    private static String getListAsString(List<?> list, String actualKey, String prefixSpaces, Yaml yaml) {
         StringBuilder builder = new StringBuilder(prefixSpaces).append(actualKey).append(":");
 
         if (list.isEmpty()) {
@@ -290,7 +291,7 @@ public class ConfigUpdater {
                 appendSection(builder, (ConfigurationSection) value, prefixSpaces, yaml);
                 prefixSpaces.setLength(prefixSpaces.length() - 2);
             } else if (value instanceof List) {
-                builder.append(getListAsString((List) value, actualKey, prefixSpaces.toString(), yaml));
+                builder.append(getListAsString((List<?>) value, actualKey, prefixSpaces.toString(), yaml));
             } else {
                 builder.append(prefixSpaces.toString()).append(actualKey).append(": ").append(yaml.dump(value));
             }

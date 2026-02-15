@@ -60,7 +60,7 @@ public enum EntityClassificationType{
     AIRBORN("ALLAY", "BAT", "BEE", "BLAZE", "ENDER_DRAGON", "GHAST", "PHANTOM", "VEX", "WITHER"), // airborn entities
     PROJECTILE("ARROW", "DRAGON_FIREBALL", "EGG", "ENDER_PEARL", "ENDER_SIGNAL", "FIREBALL", "FIREWORK",
             "LLAMA_SPIT", "SHULKER_BULLET", "SMALL_FIREBALL", "SNOWBALL", "SPECTRAL_ARROW", "SPLASH_POTION",
-            "THROWN_EXP_BOTTLE", "TRIDENT", "WITHER_SKULL"), // projectiles
+            "THROWN_EXP_BOTTLE", "TRIDENT", "SPEAR", "WITHER_SKULL"), // projectiles
     RIDEABLE("BOAT", "CHEST_BOAT", "DONKEY", "HORSE", "LLAMA", "MINECART", "MULE", "SKELETON_HORSE",
             "STRIDER", "TRADER_LLAMA", "ZOMBIE_HORSE"), // entities that are naturally rideable by player (not through commands/API)
     STRUCTURE("ARMOR_STAND", "ENDER_CRYSTAL", "GLOW_ITEM_FRAME", "ITEM_FRAME", "PAINTING"), // structural entities (e.g. ENDER_CRYSTAL or ARMOR_STAND)

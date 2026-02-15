@@ -26,7 +26,6 @@ public class GetEnchantedItemCommand implements Command {
 	private final String give_item_successful;
 	private final String error_invalid_item;
 	private final String give_item_description;
-	private final String error_player_not_found;
 	private final String error_invalid_syntax;
 	private final String reason_invalid_level;
 	private final String reason_invalid_enchant;
@@ -38,7 +37,6 @@ public class GetEnchantedItemCommand implements Command {
 		error_invalid_item = ConfigManager.getInstance().getConfig("translations.yml").get().getString("error_invalid_item");
 		error_invalid_syntax = ConfigManager.getInstance().getConfig("translations.yml").get().getString("error_invalid_syntax");
 		reason_invalid_level = ConfigManager.getInstance().getConfig("translations.yml").get().getString("reason_invalid_level");
-		error_player_not_found = ConfigManager.getInstance().getConfig("translations.yml").get().getString("error_player_not_found");
 		reason_invalid_enchant = ConfigManager.getInstance().getConfig("translations.yml").get().getString("reason_invalid_enchant");
 		warning_invalid_number = ConfigManager.getInstance().getConfig("translations.yml").get().getString("warning_invalid_number");
 	}

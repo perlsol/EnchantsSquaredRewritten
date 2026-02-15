@@ -51,7 +51,8 @@ public class CustomEnchantManager {
     private final int maxEnchantsFromTable;
     private final boolean requirePermissions;
     private final int levelMinimum;
-    private final boolean enableCosmeticGlint;
+    @SuppressWarnings("unused")
+    private final boolean enableCosmeticGlint; // Reserved for future use
     private final boolean isUsingRomanNumerals;
 
     public CustomEnchantManager(){
@@ -457,6 +458,7 @@ public class CustomEnchantManager {
         registerEnchant(new ReinforcedPlating(42, "plating"));
 
         registerEnchant(new TridentSharpness(43, "trident_sharpness"));
+        registerEnchant(new SpearSharpness(61, "spear_sharpness"));
         registerEnchant(new Grappling(44, "grappling"));
 
         registerEnchant(new FireResistance(45, "lava_resistance"));

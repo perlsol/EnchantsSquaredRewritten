@@ -4,7 +4,6 @@ import me.athlaeos.enchantssquared.EnchantsSquared;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 
 public class Config {
     private final String name;

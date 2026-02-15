@@ -1,7 +1,6 @@
 package me.athlaeos.enchantssquared.enchantments;
 
 import me.athlaeos.enchantssquared.domain.EntityEquipment;
-import me.athlaeos.enchantssquared.utility.ItemUtils;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;

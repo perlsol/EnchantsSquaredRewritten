@@ -66,11 +66,11 @@ public class EntityDamageListener implements Listener {
 
                 boolean mainHand = !ItemUtils.isAirOrNull(attackerEquipment.getMainHand());
                 if (e.getDamager() instanceof Projectile && attacker.getEquipment() != null){
-                    if (e.getDamager() instanceof Trident){
-                        // if the damager was a trident, simply consider the main hand item of the attacker the trident they threw
-                        // this does not set the trident to the attacker's main hand
-                        attackerEquipment.setMainHand(((Trident) e.getDamager()).getItem());
-                        attackerEquipment.setMainHandEnchantments(CustomEnchantManager.getInstance().getItemsEnchantsFromPDC(((Trident) e.getDamager()).getItem()));
+                    // Try to extract an ItemStack from the projectile (works for Trident and newer Spear via reflection).
+                    org.bukkit.inventory.ItemStack projItem = EntityUtils.getItemFromProjectile((org.bukkit.entity.Entity) e.getDamager());
+                    if (projItem != null){
+                        attackerEquipment.setMainHand(projItem);
+                        attackerEquipment.setMainHandEnchantments(CustomEnchantManager.getInstance().getItemsEnchantsFromPDC(projItem));
                     } else {
                         MaterialClassType mainType = MaterialClassType.getClass(attacker.getEquipment().getItemInMainHand().getType());
                         if (!(mainType == MaterialClassType.BOWS || mainType == MaterialClassType.CROSSBOWS)){
