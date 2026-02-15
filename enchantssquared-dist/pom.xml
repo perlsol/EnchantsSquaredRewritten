@@ -17,35 +17,17 @@
             <artifactId>enchantssquared-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>me.athlaeos</groupId>
-            <artifactId>enchantssquared-1.21.4</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.athlaeos</groupId>
-            <artifactId>enchantssquared-1.21.3</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.athlaeos</groupId>
-            <artifactId>enchantssquared-1.21</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>me.athlaeos</groupId>
-            <artifactId>enchantssquared-default</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 		<dependency>
 			<groupId>me.athlaeos</groupId>
 			<artifactId>valhallammo-core</artifactId>
 			<version>1.0</version>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>me.athlaeos</groupId>
 			<artifactId>valhallatrinkets</artifactId>
 			<version>1.0</version>
+			<optional>true</optional>
 		</dependency>
     </dependencies>
 
@@ -73,6 +55,19 @@
                         <filter>
                             <artifact>me.athlaeos:enchantssquared-core</artifact>
                             <includes>**</includes>
+                        </filter>
+                        <!-- Exclude optional dependencies that shouldn't be shaded -->
+                        <filter>
+                            <artifact>com.palmergames:Towny</artifact>
+                            <excludes>**</excludes>
+                        </filter>
+                        <filter>
+                            <artifact>me.athlaeos:valhallammo-core</artifact>
+                            <excludes>**</excludes>
+                        </filter>
+                        <filter>
+                            <artifact>me.athlaeos:valhallatrinkets</artifact>
+                            <excludes>**</excludes>
                         </filter>
                     </filters>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
