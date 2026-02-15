@@ -22,6 +22,7 @@
     </properties>
 
     <modules>
+        <module>enchantssquared-towny</module>
         <module>enchantssquared-core</module>
         <module>enchantssquared-dist</module>
         <module>enchantssquared-default</module>
