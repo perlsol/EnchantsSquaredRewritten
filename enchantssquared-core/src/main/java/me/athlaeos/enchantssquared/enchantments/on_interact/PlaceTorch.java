@@ -1,5 +1,8 @@
 package me.athlaeos.enchantssquared.enchantments.on_interact;
 
+import com.palmergames.bukkit.towny.TownyAPI;
+import com.palmergames.bukkit.towny.object.Resident;
+import com.palmergames.bukkit.towny.object.TownBlock;
 import me.athlaeos.enchantssquared.EnchantsSquared;
 import me.athlaeos.enchantssquared.config.ConfigManager;
 import me.athlaeos.enchantssquared.enchantments.CustomEnchant;
@@ -10,6 +13,7 @@ import me.athlaeos.enchantssquared.utility.EnchantmentMappings;
 import me.athlaeos.enchantssquared.utility.ItemUtils;
 import me.athlaeos.enchantssquared.utility.Utils;
 import org.bukkit.EntityEffect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -17,6 +21,7 @@ import org.bukkit.block.BlockState;
 import org.bukkit.block.data.Directional;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -184,6 +189,7 @@ public class PlaceTorch extends CustomEnchant implements TriggerOnInteractEnchan
         ItemStack heldItem = e.getPlayer().getInventory().getItemInMainHand();
         if (ItemUtils.isAirOrNull(heldItem) || heldItem.getType().getMaxDurability() <= 0 || !(heldItem.getItemMeta() instanceof Damageable)) return;
         Block torchBlock = clickedBlock.getRelative(e.getBlockFace());
+        if (!canUseIlluminated(e.getPlayer(), torchBlock.getLocation())) return;
         Block placedAgainst = e.getBlockFace() == BlockFace.DOWN ? torchBlock.getLocation().add(0, -1, 0).getBlock() : clickedBlock;
         if (placedAgainst.getType().isSolid() && placedAgainst.getType().isOccluding() && torchBlock.getType().toString().contains("AIR")){
             torchBlock.setType(Material.TORCH);
@@ -227,6 +233,25 @@ public class PlaceTorch extends CustomEnchant implements TriggerOnInteractEnchan
                     } else heldItem.setItemMeta(toolMeta);
                 }
             }
+        }
+    }
+
+    private boolean canUseIlluminated(Player player, Location location) {
+        try {
+            TownyAPI api = TownyAPI.getInstance();
+            if (api == null) return true;
+            if (api.isWilderness(location)) return true;
+            Resident resident = api.getResident(player);
+            if (resident == null) return false;
+            TownBlock townBlock = api.getTownBlock(location);
+            if (townBlock == null) return false;
+            Resident owner = townBlock.getResident();
+            if (owner != null && owner.equals(resident)) return true;
+            return townBlock.getTown() != null
+                    && townBlock.getTown().getMayor() != null
+                    && townBlock.getTown().getMayor().equals(resident);
+        } catch (Exception e) {
+            return true;
         }
     }
 }
