@@ -58,7 +58,7 @@ public class Crushing extends CustomEnchant implements TriggerOnAttackEnchantmen
         } else {
             for (ItemStack i : EntityUtils.getEntityEquipment(victim, false, true, false).getIterable(false)){
                 if (MaterialClassType.isArmor(i)) {
-                    if (i.toString().contains("IRON_") || i.toString().contains("GOLD_") || i.toString().contains("NETHERITE_")){
+                    if (i.toString().contains("IRON_") || i.toString().contains("GOLD_") || i.toString().contains("NETHERITE_") || i.toString().contains("COPPER_")){
                         count++;
                     }
                 }

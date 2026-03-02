@@ -168,6 +168,8 @@ public class Kinship extends CustomEnchant implements TriggerOnBlockBreakEnchant
             case "DEEPSLATE": return pickMaterial == Material.STONE_PICKAXE ? durabilityRegenStone : 0;
             case "IRON_ORE":
             case "DEEPSLATE_IRON_ORE": return pickMaterial == Material.IRON_PICKAXE ? durabilityRegenIron : 0;
+            case "COPPER_ORE":
+            case "DEEPSLATE_COPPER_ORE": return pickMaterial.toString().equals("COPPER_PICKAXE") ? durabilityRegenIron : 0;
             case "DIAMOND_ORE":
             case "DEEPSLATE_DIAMOND_ORE": return pickMaterial == Material.DIAMOND_PICKAXE ? durabilityRegenDiamond : 0;
             case "GOLD_ORE":
